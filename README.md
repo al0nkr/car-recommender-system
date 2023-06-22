@@ -18,7 +18,9 @@ Given a target car, extract its visual features using the pre-trained CNN model,
 Retrieve the top-N cars with the highest visual similarity scores.
 Additionally, consider the text classes of the top-N cars and recommend cars with similar text classes.
 
-## UI 2ndary tasks
+>task : model training , optimize loss , generate recommendations on the basis of nearest values using cosine similarity
+
+## User Interface / Display
 User friendly interface for users to interact with recommendation system : allows user to input target car , view recommended cars , filter recommendations based on text classes if need be.
 
 >additional task : represent recommended data with labels and sort by features 
