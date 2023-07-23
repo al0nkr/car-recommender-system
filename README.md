@@ -5,22 +5,21 @@ Recommend user cars to user on the basis of their visual likeness.
 ## Dataset 
 
 Uses [Stanford Cars Dataset](https://www.kaggle.com/datasets/jessicali9530/stanford-cars-dataset?select=cars_train)
+The `cars_data_upload_to_drive.ipynb` file lets you initialize the data and metadata labels for the images and downloads it onto your google drive via colab, this is done to have a seamless interface between the data since normal colab procedures made you re-download and unzip the dataset everytime your runtime would reset which felt annoying if you worked for long hours on the project , hence uploading it to your google drive seems to be the best solution for both problems.
 
-> task : load pre processed car images and the the text labels, convert text class labels to numerical values using [label encoding](https://www.geeksforgeeks.org/ml-label-encoding-of-datasets-in-python/)
+The training and testing data has been reduced to sub-folders in the `car_recommender_model.ipynb` file to reduce similarity computation time drastically and makes it easier to generate similar results for any image of choice from the whole 16000 image dataset.
 
 ## Model 
-Model architecture combines both visual and text information, using a CNN model like ResNet or VGG for extracting visual features from the images and an Embedding layer followed by a RNN to capture textual information
-
->task : concatenate visual and text features to form a join representation tensor
+Model architecture is using the ResNet18 model to compute image features. 
+Implemented a Custom ResNet model with pre-trained weights as the original architecture provides more accurate images due to its training time, this is done to reduce time for computation and preserve accuracy , since the resnet model is already used professionally and it had the best results after numerous amounts of testing , I decided to settle on the official resnet model for computing image features.
 
 ## Recommendation Generation
-Given a target car, extract its visual features using the pre-trained CNN model, calculate the visual similarity between the target car and other cars in the dataset using cosine similarity.
-Retrieve the top-N cars with the highest visual similarity scores.
-Additionally, consider the text classes of the top-N cars and recommend cars with similar text classes.
+Given a target car, extract its visual features using the resnet model, calculate the visual similarity between the target image and training image subsets using cosine similarity from scikit-learn.
+Retrieves the top-N cars with the highest visual similarity scores.
+The outputs have a high cosine similarity value most of the times (in the range of 0.70 to 0.94) and the images visually look similar in the end which was difficult to achieve with my own resnet implementation 
 
->task : model training , optimize loss , generate recommendations on the basis of nearest values using cosine similarity
+## Improvements 
+> To use text labels as encodings for generating better recommendations and not limiting it to visual features only
 
-## User Interface / Display
-User friendly interface for users to interact with recommendation system : allows user to input target car , view recommended cars , filter recommendations based on text classes if need be.
-
->additional task : represent recommended data with labels and sort by features 
+## Conclusions 
+In retrospect, there's a lot more things i wanted to do with this project like exploring nlp techniques and encorporating RNNs to have a proper recommender system used in professional environments but this was definitely a step in the right direction since I got the opportunity to learn about computer vision techniques in detail.
